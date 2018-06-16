@@ -48,42 +48,6 @@ public class Player extends GameEntity{
 		this.startedTime = AWUtils.getTime();
 		this.status = PlayerStatus.CREATED;
 	}
-	
-	/**
-	 * Move up
-	 */
-	public void moveUp() {
-		if (this.getY() + Level1Screen.MOVING_STEP < this.yMax) {
-			this.setY(this.getY() + Level1Screen.MOVING_STEP);
-		}
-	}
-	
-	/**
-	 * Move down
-	 */
-	public void moveDown() {
-		if (this.getY() - Level1Screen.MOVING_STEP > this.yMin) {
-			this.setY(this.getY() - Level1Screen.MOVING_STEP);
-		}
-	}
-	
-	/**
-	 * Move up
-	 */
-	public void moveRight() {
-		if (this.getX() + Level1Screen.MOVING_STEP < this.xMax) {
-			this.setX(this.getX() + Level1Screen.MOVING_STEP);
-		}
-	}
-	
-	/**
-	 * Move down
-	 */
-	public void moveLeft() {
-		if (this.getX() - Level1Screen.MOVING_STEP > this.xMin) {
-			this.setX(this.getY() - Level1Screen.MOVING_STEP);
-		}
-	}
 
 	
 	public boolean pickAGarbage(Garbage gb) {

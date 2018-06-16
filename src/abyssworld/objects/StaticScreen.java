@@ -84,9 +84,9 @@ public class StaticScreen {
 		try {
 			int sleepingTime = 50;
 			if(textPosition == textContent.length() + 1) {
-				sleepingTime = 2000;
+				sleepingTime = 2; //000;
 			} else if (this.textContent.charAt(textPosition - 3) == '.') {
-				sleepingTime = 500;
+				sleepingTime = 5; //00;
 			}
 			
 			if(suspenseLetter > this.textPosition) {

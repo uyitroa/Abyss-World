@@ -46,6 +46,22 @@ public class TrashBin extends GameEntity{
 	public String getImageSrc() {
 		return this.imageSrc;
 	}
+	
+	public void moveUP() {
+		this.setY(this.getY() - Level1Screen.MOVING_STEP);
+	}
+	
+	public void moveDown() {
+		this.setY(this.getY() + Level1Screen.MOVING_STEP);
+	}
+	
+	public void moveRight() {
+		this.setX(this.getX() + Level1Screen.MOVING_STEP);
+	}
+	
+	public void moveLeft() {
+		this.setX(this.getX() - Level1Screen.MOVING_STEP);
+	}
 
 	@Override
 	public void init() {
