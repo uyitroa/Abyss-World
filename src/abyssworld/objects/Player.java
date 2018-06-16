@@ -62,7 +62,6 @@ public class Player extends GameEntity{
 	
 	public boolean throwAgarbageToATrashBin(TrashBin tb) {
 		if (this.holdingGabarge != null){
-			if (AWUtils.getDistance(this.getX(), this.getY(), tb.getX(), tb.getY()) < Level1Screen.MIN_DISTANCE_WITH_TRASH_BIN) {
 				// Calculate the score
 				int score = 0;
 				if (this.holdingGabarge.getTrashBinType() == tb.getType()) {
@@ -75,10 +74,6 @@ public class Player extends GameEntity{
 				this.holdingGabarge = null;
 				return true;
 			};
-						
-		} else {
-			System.out.println("No garbage to throw");
-		}
 		
 		return false;
 	}
@@ -155,6 +150,11 @@ public class Player extends GameEntity{
 			GL11.glVertex2f(this.getX(), this.getY() + texture.getTextureHeight());
 			
 		GL11.glEnd();
+		if (this.holdingGabarge != null) {
+			this.holdingGabarge.setX(this.getX() + 10);
+			this.holdingGabarge.setY(this.getY() + 50);
+			this.holdingGabarge.show();
+		}
 	}
 	
 	
