@@ -3,16 +3,17 @@
  */
 package abyssworld.objects;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.concurrent.TimeUnit;
-import java.awt.Font;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.*;
-import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
+import org.newdawn.slick.opengl.TextureLoader;
 /**
  * @author montimage
  *

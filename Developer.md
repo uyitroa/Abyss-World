@@ -50,8 +50,10 @@ _Classes_
 + startingTime
 + MAX_PLAYING_TIME
 + MIN_SCORE
-+ xborder
-+ yborder
++ xMin
++ yMin
++ xMax
++ yMax
 
 - GameEntity: Abstract class
 + x
