@@ -36,7 +36,7 @@ public class Level1Screen extends GameScreenAbstract {
 	public final static int BAD_CLASSIFY_SCORE = -3;
 	public final static int MIN_DISTANCE_WITH_TRASH_BIN = 10;
 	public final static int MOVING_STEP = 5;
-	public final static int EFFECT_DISTANCE = 100;
+	public final static int EFFECT_DISTANCE = 50;
 	private static final int NB_GARBAGES = 20;
 
 	private final int EDGELEFT = 700;
@@ -106,7 +106,8 @@ public class Level1Screen extends GameScreenAbstract {
 		//this.setState(ScreenState.PASSED);
 		checkKey();
 		font.drawString(10, 10, "Score: " + player.getScore());
-		font.drawString(AbyssWorld.WIDTH - 200, 10, "Time: " + (AWUtils.getTime() - this.player.startedTime)/1000);
+		int remainingTime = (int) ((MAX_PLAYING_TIME - AWUtils.getTime() + this.player.startedTime)/1000);
+		font.drawString(AbyssWorld.WIDTH - 200, 10, "Time: " + remainingTime);
 
 	}
 
