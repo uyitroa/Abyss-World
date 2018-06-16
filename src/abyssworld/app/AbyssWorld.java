@@ -3,13 +3,16 @@
  */
 package abyssworld.app;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.TrueTypeFont;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
@@ -29,7 +32,8 @@ public class AbyssWorld {
 	private int current_level = 0;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
-
+	TrueTypeFont font;
+	boolean gameOver = false;
 	public void initGL() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
@@ -55,6 +59,7 @@ public class AbyssWorld {
 		}
 
 		initGL();
+		initFont();
 		
 		IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);
@@ -70,7 +75,7 @@ public class AbyssWorld {
 
 
 		
-		while (!Display.isCloseRequested()) {
+		while (!Display.isCloseRequested() && !gameOver) {
 			
 			switch (this.listScreens.get(this.current_level).getState()) {
 			case NEW:
@@ -87,12 +92,21 @@ public class AbyssWorld {
 				this.current_level++;
 				break;
 			default:
-				System.out.println("Game OVER!!!!");
+				gameOver = true;
+				font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");				
 				break;
 			}
 
 			Display.update();
 			Display.sync(60); // cap fps to 60fps
+			if (gameOver) {
+				try {
+					TimeUnit.MILLISECONDS.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		Display.destroy();
 	}
@@ -100,5 +114,10 @@ public class AbyssWorld {
 	public static void main(String[] argv) {
 		AbyssWorld timerExample = new AbyssWorld();
 		timerExample.start();
+	}
+	
+	public void initFont() {
+		Font awtFont = new Font("Times New Roman", Font.BOLD, 40);
+		font = new TrueTypeFont(awtFont, true);
 	}
 }

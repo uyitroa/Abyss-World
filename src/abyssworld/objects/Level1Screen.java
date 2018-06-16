@@ -106,6 +106,7 @@ public class Level1Screen extends GameScreenAbstract {
 		//this.setState(ScreenState.PASSED);
 		checkKey();
 		font.drawString(10, 10, "Score: " + player.getScore());
+		font.drawString(AbyssWorld.WIDTH - 200, 10, "Time: " + (AWUtils.getTime() - this.player.startedTime)/1000);
 
 	}
 
@@ -208,6 +209,7 @@ public class Level1Screen extends GameScreenAbstract {
 		this.generateGarbages( AbyssWorld.WIDTH/2, (int) AbyssWorld.HEIGHT*5/8, AbyssWorld.WIDTH, AbyssWorld.HEIGHT/2);
 		this.setState(ScreenState.ONGOING);
 		this.player.setStatus(PlayerStatus.PLAYING);
+		this.player.startedTime = AWUtils.getTime();
 	}
 
 	public void draw(Texture texture, int x, int y) {
