@@ -8,27 +8,23 @@ package abyssworld.objects;
  *
  */
 public class StaticScreen {
-	int id;
 	String backgroundImage;
 	String textContent;
 	
-	public StaticScreen(int id, String bg, String txt) {
-		this.id = id;
+	public StaticScreen(String txt, String bg) {
 		this.backgroundImage = bg;
+		this.textContent = txt;
+	}
+	
+	public StaticScreen(String txt) {
 		this.textContent = txt;
 	}
 	
 	public void show() {
 		//TODO: draw current screen 
-		System.out.println("Show screen: " + this.getId());
+		System.out.println("Show" + this.textContent);
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
 
 	/**
 	 * @return the backgroundImage
@@ -42,6 +38,10 @@ public class StaticScreen {
 	 */
 	public String getTextContent() {
 		return textContent;
+	}
+	
+	public void init() {
+		System.out.println("INIT");
 	}
 	
 	
