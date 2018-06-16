@@ -11,5 +11,6 @@ public enum ScreenState {
 	NEW,
 	LOADING_RESOURCE,
 	ONGOING,
-	PASSED
+	PASSED,
+	OVER
 }
