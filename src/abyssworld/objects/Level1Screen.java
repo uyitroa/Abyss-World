@@ -3,6 +3,7 @@
  */
 package abyssworld.objects;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
@@ -26,7 +28,7 @@ import abyssworld.utils.AWUtils;
  *
  */
 public class Level1Screen extends GameScreenAbstract {
-	public final static int MAX_PLAYING_TIME = 20000; // 20 seconds
+	public final static int MAX_PLAYING_TIME = 30000; // 20 seconds
 	public final static int MIN_SCORE = 100 ; // minimum score
 	public final static long MAX_PAUSE_TIME = 5000;
 	public final static int MIN_WINNING_SCORE = 20;
@@ -69,6 +71,7 @@ public class Level1Screen extends GameScreenAbstract {
 	public static final int xMax = AbyssWorld.WIDTH;
 	public static final int yMax = AbyssWorld.HEIGHT/2;
 
+	TrueTypeFont font;
 
 	public Level1Screen() {
 		this.setState(ScreenState.NEW);
@@ -78,6 +81,8 @@ public class Level1Screen extends GameScreenAbstract {
 		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 1/4, (int) AbyssWorld.HEIGHT*3/8);
 		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 2/4, (int) AbyssWorld.HEIGHT*3/8);
 		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 3/4, (int) AbyssWorld.HEIGHT*3/8);
+
+		initFont();
 	}
 
 	@Override
@@ -100,8 +105,7 @@ public class Level1Screen extends GameScreenAbstract {
 
 		//this.setState(ScreenState.PASSED);
 		checkKey();
-
-		System.out.println("Score : " + this.player.getScore());
+		font.drawString(10, 10, "Score: " + player.getScore());
 
 	}
 
@@ -286,6 +290,11 @@ public class Level1Screen extends GameScreenAbstract {
 				y_bg1 -= 1;
 			}
 		}
+	}
+
+	public void initFont() {
+		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
+		font = new TrueTypeFont(awtFont, true);
 	}
 
 }

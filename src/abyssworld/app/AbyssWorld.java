@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
+import abyssworld.objects.IntroductionScreen;
 import abyssworld.objects.Level1Screen;
 
 /**
@@ -43,19 +44,7 @@ public class AbyssWorld {
 	}
 
 	public void start() {
-
-		/*IntroductionScreen introductionScreen = new IntroductionScreen();
-		this.listScreens.add(introductionScreen);*/
-
-		Level1Screen level1Screen = new Level1Screen();
-		this.listScreens.add(level1Screen);
-		/*
-		Level2Screen level2Screen = new Level2Screen();
-		this.listScreens.add(level2Screen);*/
-
-		FinalScreen finalScreen = new FinalScreen();
-		this.listScreens.add(finalScreen);
-
+		
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.setTitle(WINDOW_TITLE);
@@ -66,6 +55,20 @@ public class AbyssWorld {
 		}
 
 		initGL();
+		
+		IntroductionScreen introductionScreen = new IntroductionScreen();
+		this.listScreens.add(introductionScreen);
+
+		Level1Screen level1Screen = new Level1Screen();
+		this.listScreens.add(level1Screen);
+		/*
+		Level2Screen level2Screen = new Level2Screen();
+		this.listScreens.add(level2Screen);*/
+
+		FinalScreen finalScreen = new FinalScreen();
+		this.listScreens.add(finalScreen);
+
+
 		
 		while (!Display.isCloseRequested()) {
 			
