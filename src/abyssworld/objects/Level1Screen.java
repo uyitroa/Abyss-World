@@ -42,6 +42,10 @@ public class Level1Screen extends GameScreenAbstract {
 	public final static int MIN_DISTANCE_WITH_TRASH_BIN = 10;
 	public final static int MOVING_STEP = 5;
 	private static final int MAX_NB_NEW_GARBAGES = 2;
+	private final int EDGELEFT = 700;
+	private final int EDGERIGHT = 3000;
+	private final int EDGEUP = -200;
+	private final int EDGEDOWN = -525;
 	
 	// Starting position of player
 	private final int xplayer = (int)AbyssWorld.WIDTH/2;
@@ -231,55 +235,68 @@ public class Level1Screen extends GameScreenAbstract {
 	
 	public void checkKey() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			greenTB.moveRight();
-			yellowTB.moveRight();
-			blueTB.moveRight();
+			if(x_map < EDGELEFT) {
+				greenTB.moveRight();
+				yellowTB.moveRight();
+				blueTB.moveRight();
 			
-			for(Garbage gb : listOfGarbage) {
-				gb.moveRight();
+				for(Garbage gb : listOfGarbage) {
+					gb.moveRight();
+				}
+			
+				x_map += MOVING_STEP;
+				x_bg1 += 1;
+			 /*} else if(player.getX() < x_map) {
+				player.moveLeft();
+				
+			}*/
 			}
-			
-			x_map += MOVING_STEP;
-			x_bg1 += 1;
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			greenTB.moveLeft();
-			yellowTB.moveLeft();
-			blueTB.moveLeft();
-			
-			for(Garbage gb : listOfGarbage) {
-				gb.moveLeft();
-			}
-			
-			x_map -= MOVING_STEP;
-			x_bg1 -= 1;
+			if(x_map + map.getTextureWidth() > EDGERIGHT) {
+				greenTB.moveLeft();
+				yellowTB.moveLeft();
+				blueTB.moveLeft();
+				
+				for(Garbage gb : listOfGarbage) {
+					gb.moveLeft();
+				}
+				
+				x_map -= MOVING_STEP;
+				x_bg1 -= 1;
+
+			} 
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			greenTB.moveDown();
-			yellowTB.moveDown();
-			blueTB.moveDown();
-			
-			for(Garbage gb : listOfGarbage) {
-				gb.moveDown();
+			if(y_map < EDGEUP) {
+				greenTB.moveDown();
+				yellowTB.moveDown();
+				blueTB.moveDown();
+				
+				for(Garbage gb : listOfGarbage) {
+					gb.moveDown();
+				}
+				
+				y_map += MOVING_STEP;
+				y_bg1 += 1;
 			}
-			
-			y_map += MOVING_STEP;
-			y_bg1 += 1;
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			greenTB.moveUp();
-			yellowTB.moveUp();
-			blueTB.moveUp();
+			if(y_map > EDGEDOWN) {
+				greenTB.moveUp();
+				yellowTB.moveUp();
+				blueTB.moveUp();
+				
+				for(Garbage gb : listOfGarbage) {
+					gb.moveUp();
+				}
 			
-			for(Garbage gb : listOfGarbage) {
-				gb.moveUp();
+				y_map -= MOVING_STEP;
+				y_bg1 -= 1;
 			}
-			
-			y_map -= MOVING_STEP;
-			y_bg1 -= 1;
 		}
 	}
 
