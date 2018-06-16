@@ -56,10 +56,10 @@ public class AbyssWorld {
 		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
-		this.listScreens.add(level2Screen);
+		this.listScreens.add(level2Screen);*/
 
 		FinalScreen finalScreen = new FinalScreen();
-		this.listScreens.add(finalScreen);*/
+		this.listScreens.add(finalScreen);
 
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
@@ -71,8 +71,7 @@ public class AbyssWorld {
 
 		initGL();
 		
-		while (!Display.isCloseRequested() && this.current_level < this.listScreens.size()) {
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		while (!Display.isCloseRequested()) {
 			
 			switch (this.listScreens.get(this.current_level).getState()) {
 			case NEW:
@@ -82,12 +81,14 @@ public class AbyssWorld {
 				// Show loading screen
 				break;
 			case ONGOING:
+				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 				this.listScreens.get(this.current_level).display();
 				break;
 			case PASSED:
 				this.current_level++;
 				break;
 			default:
+				
 				break;
 			}
 
