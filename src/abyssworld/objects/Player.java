@@ -3,6 +3,14 @@
  */
 package abyssworld.objects;
 
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+
 import abyssworld.abstracts.GameEntity;
 import abyssworld.enums.PlayerStatus;
 import abyssworld.utils.AWUtils;
@@ -13,6 +21,8 @@ import abyssworld.utils.AWUtils;
  */
 public class Player extends GameEntity{
 	
+	final String LOCATION = "image/player.png";
+	
 	String name;
 	Garbage holdingGabarge;
 	int score;
@@ -22,6 +32,7 @@ public class Player extends GameEntity{
 	int yMin;
 	long startedTime;	
 	PlayerStatus status;
+	Texture texture;
 	/**
 	 * 
 	 */
@@ -132,7 +143,11 @@ public class Player extends GameEntity{
 	
 	public void init() {
 		
-		// TODO Loading the resource
+		try {
+			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File(LOCATION)));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void notifyPlayerStatus() {
@@ -157,5 +172,24 @@ public class Player extends GameEntity{
 	 */
 	public void setStatus(PlayerStatus status) {
 		this.status = status;
-	}	
+	}
+	
+	public void show() {
+		Color.white.bind();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
+		GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(0, 0);
+			GL11.glVertex2f(this.getX(), this.getY());
+			
+			GL11.glTexCoord2f(1, 0);
+			GL11.glVertex2f(this.getX() + texture.getTextureWidth(), this.getY());
+			
+			GL11.glTexCoord2f(1, 1);
+			GL11.glVertex2f(this.getX() + texture.getTextureWidth(), this.getY() + texture.getTextureHeight());
+			
+			GL11.glTexCoord2f(0, 1);
+			GL11.glVertex2f(this.getX(), this.getY() + texture.getTextureHeight());
+			
+		GL11.glEnd();
+	}
 }

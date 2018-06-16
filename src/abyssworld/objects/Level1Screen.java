@@ -32,8 +32,8 @@ public class Level1Screen extends GameScreenAbstract {
 	// Position of the TrashBin
 	
 	// player zone
-	private final String lv1_background = "images/level1_background.png";
-	private final String lv1_map = "images/level1_background.png";
+	private final String lv1_background = "image/level1_background.png";
+	private final String lv1_map = "image/level1_background.png";
 	
 	Player player;
 	TrashBin greenTB ;
@@ -58,7 +58,11 @@ public class Level1Screen extends GameScreenAbstract {
 	@Override
 	public void display() {
 		System.out.println("Draw the frame of Level1Screen");
-		this.setState(ScreenState.PASSED);
+		player.show();
+		greenTB.show();
+		yellowTB.show();
+		blueTB.show();
+		//this.setState(ScreenState.PASSED);
 	}
 
 
