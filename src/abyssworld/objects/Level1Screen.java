@@ -41,9 +41,9 @@ public class Level1Screen extends GameScreenAbstract {
 
 	private final int EDGELEFT = 700;
 	private final int EDGERIGHT = 3000;
-	private final int EDGEUP = -200;
-	private final int EDGEDOWN = -525;
-
+	private final int EDGEUP = -275;
+	private final int EDGEDOWN = -625;
+	
 	// Starting position of player
 	private final int xplayer = (int)AbyssWorld.WIDTH/2;
 	private final int yplayer = (int)AbyssWorld.HEIGHT/2;
@@ -77,11 +77,9 @@ public class Level1Screen extends GameScreenAbstract {
 		this.setState(ScreenState.NEW);
 		listOfGarbage = new ArrayList<>();
 		this.player = new Player("ABYSS", xplayer, yplayer ,this.xMin, this.yMin, this.xMax, this.yMax );
-
-		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 1/4, (int) AbyssWorld.HEIGHT*3/8);
-		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 2/4, (int) AbyssWorld.HEIGHT*3/8);
-		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 3/4, (int) AbyssWorld.HEIGHT*3/8);
-
+		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 4/8, (int) AbyssWorld.HEIGHT*3/8);
+		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 5/8, (int) AbyssWorld.HEIGHT*3/8);
+		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 6/8, (int) AbyssWorld.HEIGHT*3/8);
 		initFont();
 	}
 
@@ -245,6 +243,11 @@ public class Level1Screen extends GameScreenAbstract {
 
 				x_map += MOVING_STEP;
 				x_bg1 += 1;
+				player.dirLeft();
+			 /*} else if(player.getX() < x_map) {
+				player.moveLeft();
+				
+			}*/
 			}
 		}
 
@@ -260,6 +263,7 @@ public class Level1Screen extends GameScreenAbstract {
 
 				x_map -= MOVING_STEP;
 				x_bg1 -= 1;
+				player.dirRight();
 
 			}
 		}
@@ -276,6 +280,7 @@ public class Level1Screen extends GameScreenAbstract {
 
 				y_map += MOVING_STEP;
 				y_bg1 += 1;
+				player.dirUp();
 			}
 		}
 
@@ -291,6 +296,7 @@ public class Level1Screen extends GameScreenAbstract {
 
 				y_map -= MOVING_STEP;
 				y_bg1 -= 1;
+				player.dirDown();
 			}
 		}
 	}

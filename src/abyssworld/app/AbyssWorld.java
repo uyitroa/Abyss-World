@@ -59,10 +59,9 @@ public class AbyssWorld {
 		}
 
 		initGL();
-		initFont();
 		
-		IntroductionScreen introductionScreen = new IntroductionScreen();
-		this.listScreens.add(introductionScreen);
+		/*IntroductionScreen introductionScreen = new IntroductionScreen();
+		this.listScreens.add(introductionScreen);*/
 
 		Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);
@@ -73,8 +72,6 @@ public class AbyssWorld {
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
 
-
-		
 		while (!Display.isCloseRequested() && !gameOver) {
 			
 			switch (this.listScreens.get(this.current_level).getState()) {
