@@ -29,18 +29,19 @@ public class Level1Screen extends GameScreenAbstract {
 	public final static int MAX_PLAYING_TIME = 20000; // 20 seconds
 	public final static int MIN_SCORE = 100 ; // minimum score
 	public final static long MAX_PAUSE_TIME = 5000;
-	public final static int MIN_WINNING_SCORE = 100;
+	public final static int MIN_WINNING_SCORE = 20;
 	public final static int GOOD_CLASSIFY_SCORE = 10;
 	public final static int BAD_CLASSIFY_SCORE = -3;
 	public final static int MIN_DISTANCE_WITH_TRASH_BIN = 10;
 	public final static int MOVING_STEP = 5;
-	private static final int NB_GARBAGES = 10;
+	public final static int EFFECT_DISTANCE = 100;
+	private static final int NB_GARBAGES = 20;
 
 	private final int EDGELEFT = 700;
 	private final int EDGERIGHT = 3000;
 	private final int EDGEUP = -200;
 	private final int EDGEDOWN = -525;
-	
+
 	// Starting position of player
 	private final int xplayer = (int)AbyssWorld.WIDTH/2;
 	private final int yplayer = (int)AbyssWorld.HEIGHT/2;
@@ -100,6 +101,8 @@ public class Level1Screen extends GameScreenAbstract {
 		//this.setState(ScreenState.PASSED);
 		checkKey();
 
+		System.out.println("Score : " + this.player.getScore());
+
 	}
 
 
@@ -108,7 +111,6 @@ public class Level1Screen extends GameScreenAbstract {
 		for (int i= 0 ; i < NB_GARBAGES; i++) {
 			Garbage newGB = GarbagePipe.generateAGarbage(xMin, yMin, xMax, yMax);
 			if (newGB != null) {
-				newGB.printToScreen();
 				newGB.init();
 				listOfGarbage.add(newGB);
 			}
@@ -144,8 +146,7 @@ public class Level1Screen extends GameScreenAbstract {
 				closestGarbage = garbage;
 			};
 		}
-
-		if (closestGarbage != null && minDistance < Level1Screen.MOVING_STEP) {
+		if (closestGarbage != null && minDistance < Level1Screen.EFFECT_DISTANCE) {
 			System.out.println("Pick a garbage");
 			this.listOfGarbage.remove(closestGarbage);
 			this.player.pickAGarbage(closestGarbage);
@@ -177,8 +178,7 @@ public class Level1Screen extends GameScreenAbstract {
 			minDistance = tbDistance;
 			closestTB = this.blueTB;
 		};
-
-		if (closestTB != null && minDistance < Level1Screen.MOVING_STEP) {
+		if (closestTB != null && minDistance < Level1Screen.EFFECT_DISTANCE) {
 			this.player.throwAgarbageToATrashBin(closestTB);
 		}
 
@@ -201,7 +201,7 @@ public class Level1Screen extends GameScreenAbstract {
 		this.blueTB.init();
 
 		// Generate garbages
-		this.generateGarbages( AbyssWorld.WIDTH/2, (int) AbyssWorld.HEIGHT*3/8, AbyssWorld.WIDTH, AbyssWorld.HEIGHT/2);
+		this.generateGarbages( AbyssWorld.WIDTH/2, (int) AbyssWorld.HEIGHT*5/8, AbyssWorld.WIDTH, AbyssWorld.HEIGHT/2);
 		this.setState(ScreenState.ONGOING);
 		this.player.setStatus(PlayerStatus.PLAYING);
 	}
@@ -231,17 +231,13 @@ public class Level1Screen extends GameScreenAbstract {
 				greenTB.moveRight();
 				yellowTB.moveRight();
 				blueTB.moveRight();
-			
+
 				for(Garbage gb : listOfGarbage) {
 					gb.moveRight();
 				}
-			
+
 				x_map += MOVING_STEP;
 				x_bg1 += 1;
-			 /*} else if(player.getX() < x_map) {
-				player.moveLeft();
-				
-			}*/
 			}
 		}
 
@@ -250,15 +246,15 @@ public class Level1Screen extends GameScreenAbstract {
 				greenTB.moveLeft();
 				yellowTB.moveLeft();
 				blueTB.moveLeft();
-				
+
 				for(Garbage gb : listOfGarbage) {
 					gb.moveLeft();
 				}
-				
+
 				x_map -= MOVING_STEP;
 				x_bg1 -= 1;
 
-			} 
+			}
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
@@ -266,11 +262,11 @@ public class Level1Screen extends GameScreenAbstract {
 				greenTB.moveDown();
 				yellowTB.moveDown();
 				blueTB.moveDown();
-				
+
 				for(Garbage gb : listOfGarbage) {
 					gb.moveDown();
 				}
-				
+
 				y_map += MOVING_STEP;
 				y_bg1 += 1;
 			}
@@ -281,11 +277,11 @@ public class Level1Screen extends GameScreenAbstract {
 				greenTB.moveUp();
 				yellowTB.moveUp();
 				blueTB.moveUp();
-				
+
 				for(Garbage gb : listOfGarbage) {
 					gb.moveUp();
 				}
-			
+
 				y_map -= MOVING_STEP;
 				y_bg1 -= 1;
 			}
