@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abyssworld.abstracts.GameScreenAbstract;
-import abyssworld.interfaces.ScreenState;
+import abyssworld.enums.ScreenState;
 
 /**
  * @author montimage

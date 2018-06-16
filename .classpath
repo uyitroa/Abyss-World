@@ -5,8 +5,10 @@
 	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="libs/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/Raishin/Abyss-World/native/macosx"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Abyss-World/native/macosx"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/slick-util.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

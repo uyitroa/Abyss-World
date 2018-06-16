@@ -10,7 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import abyssworld.abstracts.GameScreenAbstract;
 import abyssworld.app.AbyssWorld;
-import abyssworld.interfaces.ScreenState;
+import abyssworld.enums.ScreenState;
 
 /**
  * @author montimage

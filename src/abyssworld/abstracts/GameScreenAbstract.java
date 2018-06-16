@@ -1,7 +1,7 @@
 package abyssworld.abstracts;
 
+import abyssworld.enums.ScreenState;
 import abyssworld.interfaces.GameScreenInterface;
-import abyssworld.interfaces.ScreenState;
 
 public abstract class GameScreenAbstract implements GameScreenInterface{
 	/**
