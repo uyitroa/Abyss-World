@@ -3,6 +3,7 @@
  */
 package abyssworld.objects;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Random;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -76,6 +78,7 @@ public class Level1Screen extends GameScreenAbstract {
 	public static final int xMax = AbyssWorld.WIDTH;
 	public static final int yMax = AbyssWorld.HEIGHT/2;
 
+	TrueTypeFont font;
 	
 	public Level1Screen() {
 		this.setState(ScreenState.NEW);
@@ -85,6 +88,8 @@ public class Level1Screen extends GameScreenAbstract {
 		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 1/4, (int) AbyssWorld.HEIGHT*3/8);
 		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 2/4, (int) AbyssWorld.HEIGHT*3/8);
 		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 3/4, (int) AbyssWorld.HEIGHT*3/8);
+		
+		initFont();
 	}
 
 	@Override
@@ -110,6 +115,7 @@ public class Level1Screen extends GameScreenAbstract {
 			
 		//this.setState(ScreenState.PASSED);
 		checkKey();
+		font.drawString(10, 10, "Score: " + player.getScore());
 		
 	}
 
@@ -298,6 +304,11 @@ public class Level1Screen extends GameScreenAbstract {
 				y_bg1 -= 1;
 			}
 		}
+	}
+	
+	public void initFont() {
+		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
+		font = new TrueTypeFont(awtFont, true);
 	}
 
 }
