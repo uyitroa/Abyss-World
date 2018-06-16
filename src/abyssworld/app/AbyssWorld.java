@@ -29,8 +29,8 @@ public class AbyssWorld {
 
 
 	private int current_level = 0;
-	final int width = 1440;
-	final int height = 900;
+	final int WIDTH = 1440;
+	final int HEIGHT = 900;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class AbyssWorld {
 		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, width, height, 0, 1, -1);
+		GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
@@ -62,7 +62,7 @@ public class AbyssWorld {
 		this.listScreens.add(finalScreen);*/
 
 		try {
-			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();

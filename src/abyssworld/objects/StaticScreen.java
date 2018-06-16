@@ -20,7 +20,6 @@ import org.newdawn.slick.TrueTypeFont;
 public class StaticScreen {
 	
 	final String LOCATION_BLACK_BG = "image/black.png";
-	final int width = 1440;
 	String backgroundImage;
 	String textContent;
 	Texture bgTexture;
