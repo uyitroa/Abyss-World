@@ -9,6 +9,7 @@ import java.util.List;
 import org.newdawn.slick.opengl.Texture;
 
 import abyssworld.abstracts.GameScreenAbstract;
+import abyssworld.app.AbyssWorld;
 import abyssworld.interfaces.ScreenState;
 
 /**
@@ -19,8 +20,8 @@ public class FinalScreen extends GameScreenAbstract {
 
 	final String NAME = "Propre";
 	final String NAME_PHONE = "image/phone.png";
-	final int MIDDLE_X = 600;
-	final int MIDDLE_Y = 350;
+	final int MIDDLE_X = AbyssWorld.WIDTH / 2 -100;
+	final int MIDDLE_Y = AbyssWorld.HEIGHT / 2 - 100;
 	
 	Texture[] bgSun = new Texture[70];
 	private List<StaticScreen> listScreen = new ArrayList<>();

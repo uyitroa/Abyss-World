@@ -29,8 +29,8 @@ public class AbyssWorld {
 
 
 	private int current_level = 0;
-	final int WIDTH = 1440;
-	final int HEIGHT = 900;
+	public final static int WIDTH = 1440;
+	public final static int HEIGHT = 900;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
 
