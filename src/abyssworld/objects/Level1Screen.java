@@ -5,6 +5,7 @@ package abyssworld.objects;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -32,6 +33,7 @@ public class Level1Screen extends GameScreenAbstract {
 	public final static int BAD_CLASSIFY_SCORE = -3;
 	public final static int MIN_DISTANCE_WITH_TRASH_BIN = 10;
 	public final static int MOVING_STEP = 5;
+	private static final int MAX_NB_NEW_GARBAGES = 0;
 	
 	// Starting position of player
 	private final int xplayer = 0;
@@ -99,10 +101,29 @@ public class Level1Screen extends GameScreenAbstract {
 		greenTB.show();
 		yellowTB.show();
 		blueTB.show();
+		
+		for (Garbage garbage : listOfGarbage) {
+			garbage.show();
+		}
+		
 		this.checkAction();
+		this.generateGarbages();
 		//this.setState(ScreenState.PASSED);
 	}
 
+
+	private void generateGarbages() {
+		Random random = new Random();
+		int nbNewGarbages = random.nextInt(MAX_NB_NEW_GARBAGES);
+		for (int i= 0 ; i < nbNewGarbages; i++) {
+			Garbage newGB = GarbagePipe.generateAGarbage(0, 0, AbyssWorld.WIDTH/2, AbyssWorld.HEIGHT/2);
+			if (newGB != null) {
+				newGB.init();
+				listOfGarbage.add(newGB);
+			}
+		}
+		
+	}
 
 	private void checkAction() {
 		if (this.player.holdingGabarge != null) {
