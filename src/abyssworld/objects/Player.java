@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Arrays;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -21,8 +22,10 @@ import abyssworld.utils.AWUtils;
  */
 public class Player extends GameEntity{
 	
-	final String LOCATION = "image/player.png";
+	final String FOLDER_OF_SPRITE = "image/sprites/";
+	final String[] NAME_SPRITE = {"front1", "front2", "front3", "front4", "back1", "back2", "back3", "back4", "left1", "left2", "left3", "left4", "right1", "right2", "right3", "right4"};
 	
+	Texture[] texTure = new Texture[16];
 	String name;
 	Garbage holdingGabarge;
 	int score;
@@ -32,7 +35,9 @@ public class Player extends GameEntity{
 	int yMin;
 	long startedTime;	
 	PlayerStatus status;
-	Texture texture;
+	String dir = "right";
+	int id = 1;
+	int timing = 10;
 	/**
 	 * 
 	 */
@@ -108,7 +113,11 @@ public class Player extends GameEntity{
 	public void init() {
 		
 		try {
-			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File(LOCATION)));
+			int pos = 0;
+			for(String nameSprite : NAME_SPRITE) {
+				texTure[pos] = TextureLoader.getTexture("PNG", new FileInputStream(new File(FOLDER_OF_SPRITE + nameSprite + ".png")));
+				pos++;
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -139,6 +148,10 @@ public class Player extends GameEntity{
 	}
 	
 	public void show() {
+		int pos = Arrays.asList(NAME_SPRITE).indexOf(dir + id);
+		System.out.println(dir + id);
+		Texture texture = texTure[pos];
+
 		Color.white.bind();
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
 		GL11.glBegin(GL11.GL_QUADS);
@@ -155,6 +168,62 @@ public class Player extends GameEntity{
 			GL11.glVertex2f(this.getX(), this.getY() + texture.getTextureHeight());
 			
 		GL11.glEnd();
+	}
+	
+	public void dirUp() {
+		dir = "back";
+		if(timing == 0) {
+			timing = 10;
+			if(id == 4) {
+				id = 1;
+			} else {
+				id++;
+			}
+		} else {
+			timing -= 1;
+		}
+	}
+	
+	public void dirDown() {
+			dir = "front";
+			if(timing == 0) {
+				timing = 10;
+				if(id == 4) {
+					id = 1;
+				} else {
+					id++;
+				}
+			} else {
+				timing -= 1;
+			}
+	}
+	
+	public void dirRight() {
+			dir = "right";
+			if(timing == 0) {
+				timing = 10;
+				if(id == 4) {
+					id = 1;
+				} else {
+					id++;
+				}
+			} else {
+				timing -= 1;
+			}
+	}
+	
+	public void dirLeft() {
+			dir = "left";
+			if(timing == 0) {
+				timing = 10;
+				if(id == 4) {
+					id = 1;
+				} else {
+					id++;
+				}
+			} else {
+				timing -= 1;
+			}
 	}
 	
 	

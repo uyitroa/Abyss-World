@@ -44,6 +44,16 @@ public class AbyssWorld {
 
 	public void start() {
 
+		try {
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			Display.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+
+		initGL();
+		
 		/*IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);*/
 
@@ -56,15 +66,6 @@ public class AbyssWorld {
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
 
-		try {
-			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-			Display.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-
-		initGL();
 		
 		while (!Display.isCloseRequested()) {
 			
