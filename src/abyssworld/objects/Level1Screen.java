@@ -3,7 +3,14 @@
  */
 package abyssworld.objects;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import abyssworld.abstracts.GameScreenAbstract;
 import abyssworld.app.AbyssWorld;
@@ -32,8 +39,8 @@ public class Level1Screen extends GameScreenAbstract {
 	// Position of the TrashBin
 	
 	// player zone
-	private final String lv1_background = "images/level1_background.png";
-	private final String lv1_map = "images/level1_background.png";
+	private final String lv1_background = "image/backgroundfirst.png";
+	private final String lv1_map = "image/phone.png";
 	
 	Player player;
 	TrashBin greenTB ;
@@ -45,6 +52,8 @@ public class Level1Screen extends GameScreenAbstract {
 	final int yMin = 0;
 	final int xMax = AbyssWorld.WIDTH;
 	final int yMax = AbyssWorld.HEIGHT/2;
+	private Texture backgroundTexture;
+	private Texture mapTexture;
 	
 	public Level1Screen() {
 		this.setState(ScreenState.NEW);
@@ -58,7 +67,34 @@ public class Level1Screen extends GameScreenAbstract {
 	@Override
 	public void display() {
 		System.out.println("Draw the frame of Level1Screen");
-		this.setState(ScreenState.PASSED);
+		Color.white.bind();
+		// Draw the background
+		backgroundTexture.bind();
+		GL11.glBegin(GL11.GL_QUADS);
+	        GL11.glTexCoord2f(0,0);
+	        GL11.glVertex2f(100,100);
+	        GL11.glTexCoord2f(1,0);	        
+	        GL11.glVertex2f(backgroundTexture.getTextureWidth(),0);
+	        GL11.glTexCoord2f(1,1);
+	        GL11.glVertex2f(backgroundTexture.getTextureWidth(),backgroundTexture.getTextureHeight());
+	        GL11.glTexCoord2f(0,1);
+	        GL11.glVertex2f(0,backgroundTexture.getTextureHeight());
+	    GL11.glEnd();
+	    
+	    // Draw the map
+		mapTexture.bind();
+		GL11.glBegin(GL11.GL_QUADS);
+	        GL11.glTexCoord2f(0,0);
+	        GL11.glVertex2f(100,100);
+	        GL11.glTexCoord2f(1,0);	        
+	        GL11.glVertex2f(100+mapTexture.getTextureWidth(),100);
+	        GL11.glTexCoord2f(1,1);
+	        GL11.glVertex2f(100+mapTexture.getTextureWidth(),100+mapTexture.getTextureHeight());
+	        GL11.glTexCoord2f(0,1);
+	        GL11.glVertex2f(100,100+mapTexture.getTextureHeight());
+	        
+	    GL11.glEnd();
+//		this.setState(ScreenState.PASSED);
 	}
 
 
@@ -66,7 +102,13 @@ public class Level1Screen extends GameScreenAbstract {
 	public void init() {
 		this.setState(ScreenState.LOADING_RESOURCE);
 		// Load background image and the map for the game
-		
+		try {
+            // load texture from PNG file
+            this.backgroundTexture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(this.lv1_background));
+            this.mapTexture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(this.lv1_map));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		this.player.init();
 		this.greenTB.init();
 		this.yellowTB.init();
