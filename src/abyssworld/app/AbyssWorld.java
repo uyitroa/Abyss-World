@@ -27,35 +27,52 @@ import abyssworld.objects.StaticScreen;
  */
 public class AbyssWorld {
 
-	private static final int NB_LEVEL = 4;
 
 	private int current_level = 0;
+	final int WIDTH = 1440;
+	final int HEIGHT = 900;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
+
+	public void initGL() {
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+	}
 
 	public void start() {
 
 		IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);
 
-		Level1Screen level1Screen = new Level1Screen();
+		/*Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
 		this.listScreens.add(level2Screen);
 
 		FinalScreen finalScreen = new FinalScreen();
-		this.listScreens.add(finalScreen);
+		this.listScreens.add(finalScreen);*/
 
 		try {
-			Display.setDisplayMode(new DisplayMode(800, 600));
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 
-		while (!Display.isCloseRequested() && this.current_level < NB_LEVEL) {
+		initGL();
+		
+		while (!Display.isCloseRequested() && this.current_level < this.listScreens.size()) {
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 			
 			switch (this.listScreens.get(this.current_level).getState()) {
 			case NEW:
