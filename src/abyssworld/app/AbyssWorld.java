@@ -27,7 +27,6 @@ import abyssworld.objects.StaticScreen;
  */
 public class AbyssWorld {
 
-	private static final int NB_LEVEL = 4;
 
 	private int current_level = 0;
 
@@ -38,14 +37,14 @@ public class AbyssWorld {
 		IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);
 
-		Level1Screen level1Screen = new Level1Screen();
+		/*Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
 		this.listScreens.add(level2Screen);
 
 		FinalScreen finalScreen = new FinalScreen();
-		this.listScreens.add(finalScreen);
+		this.listScreens.add(finalScreen);*/
 
 		try {
 			Display.setDisplayMode(new DisplayMode(800, 600));
@@ -55,7 +54,7 @@ public class AbyssWorld {
 			System.exit(0);
 		}
 
-		while (!Display.isCloseRequested() && this.current_level < NB_LEVEL) {
+		while (!Display.isCloseRequested() && this.current_level < this.listScreens.size()) {
 			
 			switch (this.listScreens.get(this.current_level).getState()) {
 			case NEW:
