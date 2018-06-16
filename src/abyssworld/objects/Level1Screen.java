@@ -17,6 +17,7 @@ import abyssworld.app.AbyssWorld;
 import abyssworld.enums.PlayerStatus;
 import abyssworld.enums.ScreenState;
 import abyssworld.enums.TrashBinType;
+import abyssworld.utils.AWUtils;
 
 /**
  * @author montimage
@@ -93,13 +94,82 @@ public class Level1Screen extends GameScreenAbstract {
 	        GL11.glVertex2f(100,100+mapTexture.getTextureHeight());
 	        
 	    GL11.glEnd();
+	    
 		player.show();
 		greenTB.show();
 		yellowTB.show();
 		blueTB.show();
+		this.checkAction();
 		//this.setState(ScreenState.PASSED);
 	}
 
+
+	private void checkAction() {
+		if (this.player.holdingGabarge != null) {
+			tryToThrowTheGarbage();
+		} else {
+			tryToPickAGarbage();
+		}
+		// Update the status of the player after the action
+		this.player.updatePlayerStatus();
+		// Check the status of the player after the action
+		if (this.player.getStatus() == PlayerStatus.WIN) {
+			this.setState(ScreenState.PASSED);
+		} else if (this.player.getStatus() == PlayerStatus.LOST){
+			this.setState(ScreenState.OVER);
+		}
+	}
+	
+	
+
+	private void tryToPickAGarbage() {
+		int minDistance = AbyssWorld.WIDTH;
+		Garbage closestGarbage = null;
+		for (Garbage garbage : listOfGarbage) {
+			int gbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), garbage.getX(), garbage.getY()); 
+			if (gbDistance < minDistance) {
+				minDistance = gbDistance;
+				closestGarbage = garbage;
+			};
+		}
+		
+		if (closestGarbage != null && minDistance < Level1Screen.MOVING_STEP) {
+			this.listOfGarbage.remove(closestGarbage);
+			this.player.pickAGarbage(closestGarbage);
+		}
+		
+	}
+
+	private void tryToThrowTheGarbage() {
+		int minDistance = AbyssWorld.WIDTH;
+		TrashBin closestTB = null;
+		
+		// Check the green trash bin
+		int tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.greenTB.getX(), this.greenTB.getY()); 
+		if (tbDistance < minDistance) {
+			minDistance = tbDistance;
+			closestTB = this.greenTB;
+		};
+		
+		// Check the yellow trash bin		
+		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.yellowTB.getX(), this.yellowTB.getY()); 
+		if (tbDistance < minDistance) {
+			minDistance = tbDistance;
+			closestTB = this.yellowTB;
+		};
+		
+		// Check the blue trash bin
+		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.blueTB.getX(), this.blueTB.getY()); 
+		if (tbDistance < minDistance) {
+			minDistance = tbDistance;
+			closestTB = this.blueTB;
+		};
+		
+		if (closestTB != null && minDistance < Level1Screen.MOVING_STEP) {
+			this.player.throwAgarbageToATrashBin(closestTB);
+		}
+		
+	}
 
 	@Override
 	public void init() {
