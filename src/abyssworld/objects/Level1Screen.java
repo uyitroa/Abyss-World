@@ -66,7 +66,6 @@ public class Level1Screen extends GameScreenAbstract {
 
 	@Override
 	public void display() {
-		System.out.println("Draw the frame of Level1Screen");
 		Color.white.bind();
 		// Draw the background
 		backgroundTexture.bind();
@@ -94,7 +93,11 @@ public class Level1Screen extends GameScreenAbstract {
 	        GL11.glVertex2f(100,100+mapTexture.getTextureHeight());
 	        
 	    GL11.glEnd();
-//		this.setState(ScreenState.PASSED);
+		player.show();
+		greenTB.show();
+		yellowTB.show();
+		blueTB.show();
+		//this.setState(ScreenState.PASSED);
 	}
 
 

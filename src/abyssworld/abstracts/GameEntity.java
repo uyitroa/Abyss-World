@@ -41,4 +41,5 @@ public abstract class GameEntity {
 	}
 	
 	abstract public void init();
+	abstract public void show();
 }
