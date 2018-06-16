@@ -92,4 +92,8 @@ public class TrashBin extends GameEntity{
 		GL11.glEnd();
 	}
 	
+	public Texture getTexture() {
+		return this.texture;
+	}
+	
 }

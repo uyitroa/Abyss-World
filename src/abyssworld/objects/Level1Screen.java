@@ -163,21 +163,21 @@ public class Level1Screen extends GameScreenAbstract {
 		TrashBin closestTB = null;
 
 		// Check the green trash bin
-		int tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.greenTB.getX(), this.greenTB.getY());
+		int tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.greenTB.getX() + this.greenTB.getTexture().getTextureWidth()/2, this.greenTB.getY() + this.greenTB.getTexture().getTextureHeight()/2);
 		if (tbDistance < minDistance) {
 			minDistance = tbDistance;
 			closestTB = this.greenTB;
 		};
 
 		// Check the yellow trash bin
-		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.yellowTB.getX(), this.yellowTB.getY());
+		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.yellowTB.getX() + this.yellowTB.getTexture().getTextureWidth()/2, this.yellowTB.getY() + this.yellowTB.getTexture().getTextureHeight()/2);
 		if (tbDistance < minDistance) {
 			minDistance = tbDistance;
 			closestTB = this.yellowTB;
 		};
 
 		// Check the blue trash bin
-		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.blueTB.getX(), this.blueTB.getY());
+		tbDistance = AWUtils.getDistance(this.player.getX(), this.player.getY(), this.blueTB.getX() + this.blueTB.getTexture().getTextureWidth()/2, this.blueTB.getY() + this.blueTB.getTexture().getTextureHeight()/2);
 		if (tbDistance < minDistance) {
 			minDistance = tbDistance;
 			closestTB = this.blueTB;

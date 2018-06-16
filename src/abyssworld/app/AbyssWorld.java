@@ -90,7 +90,7 @@ public class AbyssWorld {
 				break;
 			default:
 				gameOver = true;
-				font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");				
+				if (font != null) font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");
 				break;
 			}
 
