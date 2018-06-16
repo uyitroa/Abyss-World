@@ -53,21 +53,21 @@ public abstract class GameEntity {
 	 * Move down
 	 */
 	public void moveDown() {
-			this.setY(this.getY() + Level1Screen.MOVING_STEP);
+		this.setY(this.getY() + Level1Screen.MOVING_STEP);
 	}
 	
 	/**
 	 * Move up
 	 */
 	public void moveRight() {
-			this.setX(this.getX() + Level1Screen.MOVING_STEP);
+		this.setX(this.getX() + Level1Screen.MOVING_STEP);
 	}
 	
 	/**
 	 * Move down
 	 */
 	public void moveLeft() {
-			this.setX(this.getY() - Level1Screen.MOVING_STEP);
+		this.setX(this.getX() - Level1Screen.MOVING_STEP);
 	}
 	
 	abstract public void init();
