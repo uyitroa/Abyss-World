@@ -16,6 +16,11 @@ S5 - The player decided to stop the factory by himself -> OK
 
 ---> Go to the first level
 
+## In the game view
+
++ Time
++ Score 
+
 ## Level 1
 
 The player wears the uniform of IBM worker to work in the garbage. The job is to classify all the garbage in to the right type.
@@ -28,19 +33,41 @@ The mission is to finish the job in certain time (20s) with least mistake ( scor
 
 _Design_
 
-+ Player with worker uniform: uniform must have the IBM logo (text)
-+ Trash bin -> 3 types with the logo of tri-color... search on the internet
++ Player with worker uniform: uniform must have the IBM logo (text). The actions of player (for designing sprite): go, turn, collect the garbage, throw the garbage to the trash bin
++ Trash bin -> 3 types with the logo of tri-color... search on the internet. The sprite: open and swallow the garbage
+
 + Garbage types -> 3 type for each (9 types) -> with the animation of the garbage fly into the trash bin 
 + The next level door -> a simple door
 + The garbage output pipe -> a simple pile
 + The background (map) -> show the working place + the factory
 
-## Level 3
+## Level 3 -> To be decided
 
 Mission: To find the admin password to access to the admin system and destroy the core processor
 
+- Solution 1: The system ask the player a question (this question must be very important, make the player think about the future, about the pollution, and about that he should destroy the factory or not ....). 
 
+```
+Question: What is more important?
+1 - Protect environment
+2 - Develop technology to make human like better
+```
 
+-> Correct answer: Protect Environment - that is the purpose of the founder of the factory.
+
+-> Need to design the background somehow to make people think that the correct answer is `2`
+
+'I see, you've decided to disable this factory.
+But have you really give a thought?
+This factory is humanity's hope.
+Don't let your feeling control you.
+Life of one person or the future of humanity?
+Which one?'
+Just before to click the button, re-ask.
+ 
+_Design_
+The player with the system screen.
+The questions and the button to choose the answer A / B
 
 ## End game
 
