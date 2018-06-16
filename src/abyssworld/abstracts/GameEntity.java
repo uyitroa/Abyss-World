@@ -3,6 +3,8 @@
  */
 package abyssworld.abstracts;
 
+import abyssworld.objects.Level1Screen;
+
 /**
  * @author montimage
  *
@@ -38,6 +40,34 @@ public abstract class GameEntity {
 	public void render(int x, int y) {
 		this.setX(x);
 		this.setY(y);
+	}
+	
+	/**
+	 * Move up
+	 */
+	public void moveUp() {
+		this.setY(this.getY() - Level1Screen.MOVING_STEP);
+	}
+	
+	/**
+	 * Move down
+	 */
+	public void moveDown() {
+			this.setY(this.getY() + Level1Screen.MOVING_STEP);
+	}
+	
+	/**
+	 * Move up
+	 */
+	public void moveRight() {
+			this.setX(this.getX() + Level1Screen.MOVING_STEP);
+	}
+	
+	/**
+	 * Move down
+	 */
+	public void moveLeft() {
+			this.setX(this.getY() - Level1Screen.MOVING_STEP);
 	}
 	
 	abstract public void init();

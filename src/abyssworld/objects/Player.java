@@ -115,7 +115,7 @@ public class Player extends GameEntity{
 	}
 	
 	public void updatePlayerStatus() {
-		if (AWUtils.getTime() - this.startedTime > Level1Screen.MAX_PLAY_TIME) {
+		if (AWUtils.getTime() - this.startedTime > Level1Screen.MAX_PLAYING_TIME) {
 			this.setStatus(PlayerStatus.LOST);
 		}else {
 			if (this.getScore() > Level1Screen.MIN_WINNING_SCORE) {
@@ -156,4 +156,6 @@ public class Player extends GameEntity{
 			
 		GL11.glEnd();
 	}
+	
+	
 }

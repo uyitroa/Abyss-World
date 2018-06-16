@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -43,7 +44,7 @@ public class Level1Screen extends GameScreenAbstract {
 	private static final int MAX_NB_NEW_GARBAGES = 2;
 	
 	// Starting position of player
-	private final int xplayer = 0;
+	private final int xplayer = (int)AbyssWorld.WIDTH/2;
 	private final int yplayer = (int)AbyssWorld.HEIGHT/2;
 	
 	// Position of the TrashBin
@@ -58,7 +59,7 @@ public class Level1Screen extends GameScreenAbstract {
 	
 	Texture map;
 	int x_map = 0;
-	int y_map = 130;
+	int y_map = -300;
 	
 	Texture lv1bg;
 	int x_bg1 = 0;
@@ -66,10 +67,10 @@ public class Level1Screen extends GameScreenAbstract {
 
 	List<Garbage> listOfGarbage;
 	
-	final int xMin = 0;
-	final int yMin = 0;
-	final int xMax = AbyssWorld.WIDTH;
-	final int yMax = AbyssWorld.HEIGHT/2;
+	public static final int xMin = 0;
+	public static final int yMin = 0;
+	public static final int xMax = AbyssWorld.WIDTH;
+	public static final int yMax = AbyssWorld.HEIGHT/2;
 
 	
 	public Level1Screen() {
@@ -77,33 +78,34 @@ public class Level1Screen extends GameScreenAbstract {
 		listOfGarbage = new ArrayList<>();
 		this.player = new Player("ABYSS", xplayer, yplayer ,this.xMin, this.yMin, this.xMax, this.yMax );
 		
-		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 1/4, (int) AbyssWorld.HEIGHT*9/16);
-		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 2/4, (int) AbyssWorld.HEIGHT*9/16);
-		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 3/4, (int) AbyssWorld.HEIGHT*9/16);
+		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 1/4, (int) AbyssWorld.HEIGHT*3/8);
+		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 2/4, (int) AbyssWorld.HEIGHT*3/8);
+		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 3/4, (int) AbyssWorld.HEIGHT*3/8);
 	}
 
 	@Override
 	public void display() {
 		System.out.println("Draw the frame of Level1Screen");
 		//Draw bg and map
-		draw(lv1bg, x_bg1, y_bg1);
+		//draw(lv1bg, x_bg1, y_bg1);
 		draw(map, x_map, y_map);
 
-		player.show();
 		greenTB.show();
 		yellowTB.show();
 		blueTB.show();
 		
-		for (Garbage garbage : listOfGarbage) {
+		/*for (Garbage garbage : listOfGarbage) {
 			garbage.show();
-		}
+		}*/
 		
 		//this.checkAction();
-		if(AWUtils.getTime() - GarbagePipe.lastGarbageTime > MAX_PAUSE_TIME ) {
+		/*if(AWUtils.getTime() - GarbagePipe.lastGarbageTime > MAX_PAUSE_TIME ) {
 			this.generateGarbages();
-		}
+		}*/
+		player.show();
 			
 		//this.setState(ScreenState.PASSED);
+		checkKey();
 		
 	}
 
@@ -225,6 +227,60 @@ public class Level1Screen extends GameScreenAbstract {
 			GL11.glVertex2f(x, y + texture.getTextureHeight());
 			
 		GL11.glEnd();
+	}
+	
+	public void checkKey() {
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			greenTB.moveRight();
+			yellowTB.moveRight();
+			blueTB.moveRight();
+			
+			for(Garbage gb : listOfGarbage) {
+				gb.moveRight();
+			}
+			
+			x_map += MOVING_STEP;
+			x_bg1 += 1;
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			greenTB.moveLeft();
+			yellowTB.moveLeft();
+			blueTB.moveLeft();
+			
+			for(Garbage gb : listOfGarbage) {
+				gb.moveLeft();
+			}
+			
+			x_map -= MOVING_STEP;
+			x_bg1 -= 1;
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			greenTB.moveDown();
+			yellowTB.moveDown();
+			blueTB.moveDown();
+			
+			for(Garbage gb : listOfGarbage) {
+				gb.moveDown();
+			}
+			
+			y_map += MOVING_STEP;
+			y_bg1 += 1;
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			greenTB.moveUp();
+			yellowTB.moveUp();
+			blueTB.moveUp();
+			
+			for(Garbage gb : listOfGarbage) {
+				gb.moveUp();
+			}
+			
+			y_map -= MOVING_STEP;
+			y_bg1 -= 1;
+		}
 	}
 
 }
