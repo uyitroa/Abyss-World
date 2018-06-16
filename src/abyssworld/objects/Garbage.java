@@ -31,27 +31,27 @@ public class Garbage extends GameEntity{
 		this.type = type;
 		switch(type) {
 		case GB_PLASTIC_1:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_plastic_1.png";
 		case GB_PLASTIC_2:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_plastic_2.png";
 		case GB_PLASTIC_3:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_plastic_3.png";
 			this.tbType = TrashBinType.TB_PLASTIC;
 			break;
 		case GB_ORGANIC_1:
 			this.imageSrc = "image/gb_organic_1.png";
 		case GB_ORGANIC_2:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_organic_2.png";
 		case GB_ORGANIC_3:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_organic_3.png";
 			this.tbType = TrashBinType.TB_ORGANIC;
 			break;
 		case GB_PAPER_1:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_paper_1.png";
 		case GB_PAPER_2:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_paper_2.png";
 		case GB_PAPER_3:
-			this.imageSrc = "image/gb_organic_1.png";
+			this.imageSrc = "image/gb_paper_3.png";
 			this.tbType = TrashBinType.TB_PAPER;
 			break;
 		}

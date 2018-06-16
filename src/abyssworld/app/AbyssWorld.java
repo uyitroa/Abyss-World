@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
-import abyssworld.objects.IntroductionScreen;
 import abyssworld.objects.Level1Screen;
 
 /**
@@ -24,6 +23,7 @@ public class AbyssWorld {
 	
 	public final static int WIDTH = 1440;
 	public final static int HEIGHT = 900;
+	private static final String WINDOW_TITLE = "Abyss World Game";
 	
 	private int current_level = 0;
 
@@ -58,6 +58,7 @@ public class AbyssWorld {
 
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			Display.setTitle(WINDOW_TITLE);
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -83,7 +84,7 @@ public class AbyssWorld {
 				this.current_level++;
 				break;
 			default:
-				
+				System.out.println("Game OVER!!!!");
 				break;
 			}
 
