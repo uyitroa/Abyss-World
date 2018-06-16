@@ -44,8 +44,8 @@ public class AbyssWorld {
 
 	public void start() {
 
-		IntroductionScreen introductionScreen = new IntroductionScreen();
-		this.listScreens.add(introductionScreen);
+		/*IntroductionScreen introductionScreen = new IntroductionScreen();
+		this.listScreens.add(introductionScreen);*/
 
 		Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);

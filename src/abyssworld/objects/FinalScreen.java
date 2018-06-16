@@ -54,7 +54,7 @@ public class FinalScreen extends GameScreenAbstract {
 		
 		listScreen.add(new StaticScreen("RING RING RING"));
 		listScreen.get(2).init();
-		//listScreen.get(2).initCharacter();
+		listScreen.get(2).initCharacter();
 		
 		listScreen.add(new StaticScreen("RING RING RING"));
 		listScreen.get(3).init();

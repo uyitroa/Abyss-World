@@ -114,7 +114,7 @@ public class Player extends GameEntity{
 		}
 	}
 	
-	public void notifyPlayerStatus() {
+	public void updatePlayerStatus() {
 		if (AWUtils.getTime() - this.startedTime > Level1Screen.MAX_PLAY_TIME) {
 			this.setStatus(PlayerStatus.LOST);
 		}else {
