@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abyssworld.interfaces;
+package abyssworld.enums;
 
 /**
  * @author montimage
