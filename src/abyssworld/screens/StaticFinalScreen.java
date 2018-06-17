@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abyssworld.objects;
+package abyssworld.screens;
 
 /**
  * @author Raishin

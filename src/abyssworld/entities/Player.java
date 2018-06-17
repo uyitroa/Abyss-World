@@ -1,7 +1,7 @@
 /**
  *
  */
-package abyssworld.objects;
+package abyssworld.entities;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -14,6 +14,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import abyssworld.abstracts.GameEntity;
 import abyssworld.enums.PlayerStatus;
+import abyssworld.screens.Level1Screen;
 import abyssworld.utils.AWUtils;
 
 /**
@@ -27,13 +28,13 @@ public class Player extends GameEntity{
 
 	Texture[] texTure = new Texture[16];
 	String name;
-	Garbage holdingGabarge;
+	public Garbage holdingGabarge;
 	int score;
 	int xMax;
 	int yMax;
 	int xMin;
 	int yMin;
-	long startedTime;
+	public long startedTime;
 	PlayerStatus status;
 	String dir = "right";
 	int id = 1;

@@ -1,4 +1,4 @@
-package abyssworld.objects;
+package abyssworld.screens;
 
 import java.io.File;
 import java.io.FileInputStream;

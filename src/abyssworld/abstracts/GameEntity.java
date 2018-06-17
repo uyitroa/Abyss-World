@@ -3,7 +3,7 @@
  */
 package abyssworld.abstracts;
 
-import abyssworld.objects.Level1Screen;
+import abyssworld.screens.Level1Screen;
 
 /**
  * @author montimage

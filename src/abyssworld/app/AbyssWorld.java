@@ -26,10 +26,10 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import abyssworld.enums.ScreenState;
 import abyssworld.interfaces.GameScreenInterface;
-import abyssworld.objects.FinalScreen;
-import abyssworld.objects.IntroductionScreen;
-import abyssworld.objects.Level1Screen;
-import abyssworld.objects.Level2Screen;
+import abyssworld.screens.FinalScreen;
+import abyssworld.screens.IntroductionScreen;
+import abyssworld.screens.Level1Screen;
+import abyssworld.screens.Level2Screen;
 import abyssworld.utils.AWUtils;
 
 /**
@@ -42,7 +42,7 @@ public class AbyssWorld {
 	public final static int WIDTH = 1440;
 	public final static int HEIGHT = 900;
 	private static final String WINDOW_TITLE = "Abyss World Game";
-	public static final long WAITING_TIME_BETWEEN_LEVEL = 5000;
+	public static final long WAITING_TIME_BETWEEN_LEVEL = 100;
 	
 	// Current game level
 	private int current_level = 0;
@@ -120,6 +120,7 @@ public class AbyssWorld {
 					break;
 				case PASSED:
 					GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+					System.out.println("Time: " + AWUtils.getTime() + " - startedTime: " + startedTime);
 					if (AWUtils.getTime() - startedTime > 2*AbyssWorld.WAITING_TIME_BETWEEN_LEVEL) {
 						startedTime = AWUtils.getTime();
 					}
@@ -134,7 +135,7 @@ public class AbyssWorld {
 					
 					if (message != null) font.drawString(WIDTH/2 - xOffset , HEIGHT/2 + 100, message);
 					if (AWUtils.getTime() - startedTime >= AbyssWorld.WAITING_TIME_BETWEEN_LEVEL/2) {
-						this.current_level++;				
+						this.current_level++;	
 					}
 					break;
 				case OVER:

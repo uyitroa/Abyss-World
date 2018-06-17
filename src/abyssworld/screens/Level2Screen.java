@@ -1,7 +1,7 @@
 /**
  *
  */
-package abyssworld.objects;
+package abyssworld.screens;
 
 import java.awt.Font;
 import java.io.File;
@@ -14,6 +14,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import abyssworld.abstracts.GameScreenAbstract;
 import abyssworld.app.AbyssWorld;
+import abyssworld.entities.Player;
 import abyssworld.enums.PlayerStatus;
 import abyssworld.enums.ScreenState;
 import abyssworld.utils.AWUtils;

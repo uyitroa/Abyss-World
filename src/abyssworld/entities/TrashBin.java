@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abyssworld.objects;
+package abyssworld.entities;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import abyssworld.abstracts.GameEntity;
 import abyssworld.enums.TrashBinType;
+import abyssworld.screens.Level1Screen;
 
 /**
  * @author montimage

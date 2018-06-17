@@ -1,7 +1,7 @@
 /**
  * 
  */
-package abyssworld.objects;
+package abyssworld.screens;
 
 import java.awt.Font;
 import java.io.File;
