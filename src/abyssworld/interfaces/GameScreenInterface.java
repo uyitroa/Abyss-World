@@ -3,6 +3,8 @@
  */
 package abyssworld.interfaces;
 
+import abyssworld.enums.ScreenState;
+
 /**
  * @author montimage
  *

@@ -3,8 +3,8 @@
  */
 package abyssworld.objects;
 
+import abyssworld.enums.ScreenState;
 import abyssworld.interfaces.GameScreenInterface;
-import abyssworld.interfaces.ScreenState;
 
 /**
  * @author montimage
