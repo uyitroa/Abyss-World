@@ -130,7 +130,6 @@ public class AbyssWorld {
 					int xOffset = 500;
 					if (message == null && this.current_level < listScreens.size() - 1) {
 						message = "Next level";
-						xOffset = 300;
 					}
 					
 					if (message != null) font.drawString(WIDTH/2 - xOffset , HEIGHT/2 + 100, message);
