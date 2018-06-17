@@ -27,6 +27,8 @@ import org.newdawn.slick.util.ResourceLoader;
 import abyssworld.enums.ScreenState;
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
+import abyssworld.objects.IntroductionScreen;
+import abyssworld.objects.Level1Screen;
 import abyssworld.objects.Level2Screen;
 import abyssworld.utils.AWUtils;
 
@@ -91,11 +93,11 @@ public class AbyssWorld {
 		initGraphical();
 		
 		// Create the game levels
-//		IntroductionScreen introductionScreen = new IntroductionScreen();
-//		this.listScreens.add(introductionScreen);
+		IntroductionScreen introductionScreen = new IntroductionScreen();
+		this.listScreens.add(introductionScreen);
 
-//		Level1Screen level1Screen = new Level1Screen();
-//		this.listScreens.add(level1Screen);
+		Level1Screen level1Screen = new Level1Screen();
+		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
 		this.listScreens.add(level2Screen);
@@ -139,8 +141,8 @@ public class AbyssWorld {
 				case OVER:
 					gameOver = true;
 					TextureImpl.bindNone();
-					if (message == null) message = "Game OVER!!!!";
-					if (font != null) font.drawString(WIDTH/2-300, HEIGHT/2 + 100, message);
+					if (message == null && this.current_level < listScreens.size() - 1) message = "Game OVER!!!!";
+					if (message != null) font.drawString(WIDTH/2-300, HEIGHT/2 + 100, message);
 					break;
 				case LOADING_RESOURCE:
 					GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
