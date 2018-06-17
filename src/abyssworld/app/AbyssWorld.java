@@ -30,17 +30,25 @@ import abyssworld.objects.Level2Screen;
  *
  */
 public class AbyssWorld {
-
+	
+	// Window size
 	public final static int WIDTH = 1440;
 	public final static int HEIGHT = 900;
 	private static final String WINDOW_TITLE = "Abyss World Game";
-
+	
+	// Current game level
 	private int current_level = 0;
-
+	
+	// List of game level
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
+	
+	// List of effect sounds
 	public static Audio bgMusic, endMusic, paper, plastic, organic, pick_garbage;
+	
 	TrueTypeFont font;
 	boolean gameOver = false;
+	
+	// Initilize GL environment
 	public void initGL() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
@@ -53,7 +61,8 @@ public class AbyssWorld {
 		GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
-
+	
+	// Start the game
 	public void start() {
 
 		try {
@@ -64,9 +73,11 @@ public class AbyssWorld {
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
 		initSound();
 		initGL();
-
+		
+		// Create the game levels
 		IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);
 
@@ -79,54 +90,64 @@ public class AbyssWorld {
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
 
+		
+		// Start the game loop
 		while (!Display.isCloseRequested() && !gameOver) {
 
 			switch (this.listScreens.get(this.current_level).getState()) {
-			case NEW:
-				this.listScreens.get(this.current_level).init();
-				break;
-			case LOADING_RESOURCE:
-				// Show loading screen
-				break;
-			case ONGOING:
-				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-				this.listScreens.get(this.current_level).display();
-				break;
-			case PASSED:
-				this.current_level++;
-				break;
-			default:
-				gameOver = true;
-				if (font != null) font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");
-				break;
+				case NEW:
+					this.listScreens.get(this.current_level).init();
+					break;
+				case ONGOING:
+					GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+					this.listScreens.get(this.current_level).display();
+					break;
+				case PASSED:
+					this.current_level++;
+					break;
+				case OVER:
+					gameOver = true;
+					if (font != null) font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");
+					break;
+				case LOADING_RESOURCE:
+					// Show loading screen
+					break;
+				default:
+					break;
 			}
 
+			// Update the display
 			Display.update();
 			Display.sync(60); // cap fps to 60fps
+			
 			if (gameOver) {
 				endMusic.playAsMusic(1.0f, 0.0f, false);
 				try {
+					// Stop for some time before finish the game
 					TimeUnit.MILLISECONDS.sleep(5000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				endMusic.stop();
 			}
 		}
-		endMusic.stop();
+		
 		Display.destroy();
 	}
 
+	// Main function
 	public static void main(String[] argv) {
-		AbyssWorld timerExample = new AbyssWorld();
-		timerExample.start();
+		AbyssWorld abyssWorld = new AbyssWorld();
+		abyssWorld.start();
 	}
 
+	// Initialize font
 	public void initFont() {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 40);
 		font = new TrueTypeFont(awtFont, true);
 	}
 
+	// Initialize sounds resources
 	public void initSound() {
 		try {
 			bgMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/open.ogg"));
@@ -136,10 +157,8 @@ public class AbyssWorld {
 			paper = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/paper.wav"));
 			pick_garbage = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/pick_garbage.wav"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
