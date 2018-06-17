@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package abyssworld.objects;
 
@@ -21,10 +21,10 @@ import abyssworld.utils.AWUtils;
  *
  */
 public class Player extends GameEntity{
-	
+
 	final String FOLDER_OF_SPRITE = "image/sprites/";
 	final String[] NAME_SPRITE = {"front1", "front2", "front3", "front4", "back1", "back2", "back3", "back4", "left1", "left2", "left3", "left4", "right1", "right2", "right3", "right4"};
-	
+
 	Texture[] texTure = new Texture[16];
 	String name;
 	Garbage holdingGabarge;
@@ -33,13 +33,13 @@ public class Player extends GameEntity{
 	int yMax;
 	int xMin;
 	int yMin;
-	long startedTime;	
+	long startedTime;
 	PlayerStatus status;
 	String dir = "right";
 	int id = 1;
 	int timing = 10;
 	/**
-	 * 
+	 *
 	 */
 	public Player(String name, int x, int y, int xMin, int yMin, int xMax, int yMax) {
 		this.name = name;
@@ -54,7 +54,7 @@ public class Player extends GameEntity{
 		this.status = PlayerStatus.CREATED;
 	}
 
-	
+
 	public boolean pickAGarbage(Garbage gb) {
 		if(this.holdingGabarge == null) {
 			this.holdingGabarge = gb;
@@ -62,9 +62,9 @@ public class Player extends GameEntity{
 		}else {
 			System.out.println("Cannot hold more than 1 garbage");
 			return false;
-		}		
+		}
 	}
-	
+
 	public boolean throwAgarbageToATrashBin(TrashBin tb) {
 		if (this.holdingGabarge != null){
 				// Calculate the score
@@ -79,14 +79,14 @@ public class Player extends GameEntity{
 				this.holdingGabarge = null;
 				return true;
 			};
-		
+
 		return false;
 	}
 
 	private void updateScore(int score) {
-		this.score += score;		
+		this.score += score;
 	}
-	
+
 	public int getScore() {
 		return this.score;
 	}
@@ -104,9 +104,9 @@ public class Player extends GameEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void init() {
-		
+
 		try {
 			int pos = 0;
 			for(String nameSprite : NAME_SPRITE) {
@@ -117,7 +117,7 @@ public class Player extends GameEntity{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updatePlayerStatus() {
 		if (AWUtils.getTime() - this.startedTime > Level1Screen.MAX_PLAYING_TIME) {
 			this.setStatus(PlayerStatus.LOST);
@@ -141,10 +141,10 @@ public class Player extends GameEntity{
 	public void setStatus(PlayerStatus status) {
 		this.status = status;
 	}
-	
+
 	public void show() {
 		int pos = Arrays.asList(NAME_SPRITE).indexOf(dir + id);
-		System.out.println(dir + id);
+		// System.out.println(dir + id);
 		Texture texture = texTure[pos];
 
 		Color.white.bind();
@@ -152,16 +152,16 @@ public class Player extends GameEntity{
 		GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(0, 0);
 			GL11.glVertex2f(this.getX(), this.getY());
-			
+
 			GL11.glTexCoord2f(1, 0);
 			GL11.glVertex2f(this.getX() + texture.getTextureWidth(), this.getY());
-			
+
 			GL11.glTexCoord2f(1, 1);
 			GL11.glVertex2f(this.getX() + texture.getTextureWidth(), this.getY() + texture.getTextureHeight());
-			
+
 			GL11.glTexCoord2f(0, 1);
 			GL11.glVertex2f(this.getX(), this.getY() + texture.getTextureHeight());
-			
+
 		GL11.glEnd();
 		if (this.holdingGabarge != null) {
 			this.holdingGabarge.setX(this.getX() + 10);
@@ -169,7 +169,7 @@ public class Player extends GameEntity{
 			this.holdingGabarge.show();
 		}
 	}
-	
+
 	public void dirUp() {
 		dir = "back";
 		if(timing == 0) {
@@ -183,7 +183,7 @@ public class Player extends GameEntity{
 			timing -= 1;
 		}
 	}
-	
+
 	public void dirDown() {
 			dir = "front";
 			if(timing == 0) {
@@ -197,7 +197,7 @@ public class Player extends GameEntity{
 				timing -= 1;
 			}
 	}
-	
+
 	public void dirRight() {
 			dir = "right";
 			if(timing == 0) {
@@ -211,7 +211,7 @@ public class Player extends GameEntity{
 				timing -= 1;
 			}
 	}
-	
+
 	public void dirLeft() {
 			dir = "left";
 			if(timing == 0) {
@@ -225,6 +225,6 @@ public class Player extends GameEntity{
 				timing -= 1;
 			}
 	}
-	
-	
+
+
 }
