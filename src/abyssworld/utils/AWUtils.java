@@ -3,6 +3,10 @@
  */
 package abyssworld.utils;
 
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
+
 /**
  * @author montimage
  *
@@ -27,5 +31,24 @@ public final class AWUtils {
 	 */
 	public static long getTime() {
 	    return System.nanoTime() / 1000000;
+	}
+	
+	public static void draw(Texture texture, int x, int y) {
+		Color.white.bind();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
+		GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(0, 0);
+			GL11.glVertex2f(x, y);
+
+			GL11.glTexCoord2f(1, 0);
+			GL11.glVertex2f(x + texture.getTextureWidth(), y);
+
+			GL11.glTexCoord2f(1, 1);
+			GL11.glVertex2f(x + texture.getTextureWidth(), y + texture.getTextureHeight());
+
+			GL11.glTexCoord2f(0, 1);
+			GL11.glVertex2f(x, y + texture.getTextureHeight());
+
+		GL11.glEnd();
 	}
 }

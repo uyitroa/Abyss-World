@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -49,7 +50,7 @@ public class Level1Screen extends GameScreenAbstract {
 	private final int yplayer = (int)AbyssWorld.HEIGHT/2;
 
 	// player zone
-	private final String lv1_background = "image/backgroundfirst.png";
+	private final String game_level = "image/game-level.png";
 	private final String lv1_map = "image/room1.png";
 	Player player;
 	TrashBin greenTB ;
@@ -60,7 +61,7 @@ public class Level1Screen extends GameScreenAbstract {
 	int x_map = 0;
 	int y_map = -300;
 
-	Texture lv1bg;
+	Texture txtGameLevel;
 	int x_bg1 = 0;
 	int y_bg1 = 0;
 
@@ -72,6 +73,8 @@ public class Level1Screen extends GameScreenAbstract {
 	public static final int yMax = AbyssWorld.HEIGHT/2;
 
 	TrueTypeFont font;
+	
+	private long startedTime;
 
 	public Level1Screen() {
 		this.setState(ScreenState.NEW);
@@ -80,33 +83,33 @@ public class Level1Screen extends GameScreenAbstract {
 		this.greenTB = new TrashBin(TrashBinType.TB_ORGANIC, (int)AbyssWorld.WIDTH * 4/8, (int) AbyssWorld.HEIGHT*3/8);
 		this.yellowTB = new TrashBin(TrashBinType.TB_PLASTIC, (int)AbyssWorld.WIDTH * 5/8, (int) AbyssWorld.HEIGHT*3/8);
 		this.blueTB = new TrashBin(TrashBinType.TB_PAPER, (int)AbyssWorld.WIDTH * 6/8, (int) AbyssWorld.HEIGHT*3/8);
+		
 		initFont();
 	}
 
 	@Override
 	public void display() {
-		//Draw bg and map
-		//draw(lv1bg, x_bg1, y_bg1);
-		draw(map, x_map, y_map);
-
-		greenTB.show();
-		yellowTB.show();
-		blueTB.show();
-
-		for (Garbage garbage : listOfGarbage) {
-			garbage.show();
-		}
-
-		this.checkAction();
-
-		player.show();
-
-		//this.setState(ScreenState.PASSED);
-		checkKey();
-		font.drawString(10, 10, "Score: " + player.getScore());
-		int remainingTime = (int) ((MAX_PLAYING_TIME - AWUtils.getTime() + this.player.startedTime)/1000);
-		font.drawString(AbyssWorld.WIDTH - 200, 10, "Time: " + remainingTime);
-
+			//Draw bg and map
+//			draw(txtGameLevel, x_bg1, y_bg1);
+			AWUtils.draw(map, x_map, y_map);
+	
+			greenTB.show();
+			yellowTB.show();
+			blueTB.show();
+	
+			for (Garbage garbage : listOfGarbage) {
+				garbage.show();
+			}
+	
+			this.checkAction();
+	
+			player.show();
+	
+			//this.setState(ScreenState.PASSED);
+			checkKey();
+			font.drawString(10, 10, "Score: " + player.getScore());
+			int remainingTime = (int) ((MAX_PLAYING_TIME - AWUtils.getTime() + this.player.startedTime)/1000);
+			font.drawString(AbyssWorld.WIDTH - 200, 10, "Time: " + remainingTime);
 	}
 
 
@@ -199,7 +202,7 @@ public class Level1Screen extends GameScreenAbstract {
 		// Load background image and the map for the game
 		try {
 			map = TextureLoader.getTexture("PNG", new FileInputStream(new File(lv1_map)));
-			lv1bg = TextureLoader.getTexture("PNG", new FileInputStream(new File(lv1_background)));
+			txtGameLevel = TextureLoader.getTexture("PNG", new FileInputStream(new File(game_level)));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -211,29 +214,11 @@ public class Level1Screen extends GameScreenAbstract {
 
 		// Generate garbages
 		this.generateGarbages( AbyssWorld.WIDTH/2, (int) AbyssWorld.HEIGHT*5/8, AbyssWorld.WIDTH, AbyssWorld.HEIGHT/2);
-		this.setState(ScreenState.ONGOING);
+		
+//		this.setState(ScreenState.ONGOING);
 		this.player.setStatus(PlayerStatus.PLAYING);
-		this.player.startedTime = AWUtils.getTime();
-	}
-
-	public void draw(Texture texture, int x, int y) {
-		Color.white.bind();
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
-		GL11.glBegin(GL11.GL_QUADS);
-			GL11.glTexCoord2f(0, 0);
-			GL11.glVertex2f(x, y);
-
-			GL11.glTexCoord2f(1, 0);
-			GL11.glVertex2f(x + texture.getTextureWidth(), y);
-
-			GL11.glTexCoord2f(1, 1);
-			GL11.glVertex2f(x + texture.getTextureWidth(), y + texture.getTextureHeight());
-
-			GL11.glTexCoord2f(0, 1);
-			GL11.glVertex2f(x, y + texture.getTextureHeight());
-
-		GL11.glEnd();
-	}
+		this.player.startedTime = AWUtils.getTime() + AbyssWorld.WAITING_TIME_BETWEEN_LEVEL;
+	}	
 
 	public void checkKey() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {

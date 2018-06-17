@@ -4,6 +4,8 @@
 package abyssworld.app;
 
 import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,13 +19,16 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
+import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import abyssworld.enums.ScreenState;
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
-import abyssworld.objects.IntroductionScreen;
-import abyssworld.objects.Level1Screen;
 import abyssworld.objects.Level2Screen;
+import abyssworld.utils.AWUtils;
 
 /**
  * @author Raishin
@@ -35,6 +40,7 @@ public class AbyssWorld {
 	public final static int WIDTH = 1440;
 	public final static int HEIGHT = 900;
 	private static final String WINDOW_TITLE = "Abyss World Game";
+	public static final long WAITING_TIME_BETWEEN_LEVEL = 5000;
 	
 	// Current game level
 	private int current_level = 0;
@@ -47,6 +53,11 @@ public class AbyssWorld {
 	
 	TrueTypeFont font;
 	boolean gameOver = false;
+	private long startedTime;
+	
+	private final String game_level = "image/game-level.png";
+	Texture txtGameLevel;
+	public static String message = null;
 	
 	// Initilize GL environment
 	public void initGL() {
@@ -64,7 +75,7 @@ public class AbyssWorld {
 	
 	// Start the game
 	public void start() {
-
+		startedTime = AWUtils.getTime();
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.setTitle(WINDOW_TITLE);
@@ -76,13 +87,15 @@ public class AbyssWorld {
 		
 		initSound();
 		initGL();
+		initFont();
+		initGraphical();
 		
 		// Create the game levels
-		IntroductionScreen introductionScreen = new IntroductionScreen();
-		this.listScreens.add(introductionScreen);
+//		IntroductionScreen introductionScreen = new IntroductionScreen();
+//		this.listScreens.add(introductionScreen);
 
-		Level1Screen level1Screen = new Level1Screen();
-		this.listScreens.add(level1Screen);
+//		Level1Screen level1Screen = new Level1Screen();
+//		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
 		this.listScreens.add(level2Screen);
@@ -96,6 +109,7 @@ public class AbyssWorld {
 
 			switch (this.listScreens.get(this.current_level).getState()) {
 				case NEW:
+					startedTime = AWUtils.getTime(); // Reset time
 					this.listScreens.get(this.current_level).init();
 					break;
 				case ONGOING:
@@ -103,14 +117,40 @@ public class AbyssWorld {
 					this.listScreens.get(this.current_level).display();
 					break;
 				case PASSED:
-					this.current_level++;
+					GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+					if (AWUtils.getTime() - startedTime > 2*AbyssWorld.WAITING_TIME_BETWEEN_LEVEL) {
+						startedTime = AWUtils.getTime();
+					}
+					// Draw passed screen
+					
+					AWUtils.draw(txtGameLevel, 0, 0);
+					TextureImpl.bindNone();
+					int xOffset = 500;
+					if (message == null && this.current_level < listScreens.size() - 1) {
+						message = "Next level";
+						xOffset = 300;
+					}
+					
+					if (message != null) font.drawString(WIDTH/2 - xOffset , HEIGHT/2 + 100, message);
+					if (AWUtils.getTime() - startedTime >= AbyssWorld.WAITING_TIME_BETWEEN_LEVEL/2) {
+						this.current_level++;				
+					}
 					break;
 				case OVER:
 					gameOver = true;
-					if (font != null) font.drawString(WIDTH/2-50, HEIGHT/2-50, "Game OVER!!!!!");
+					TextureImpl.bindNone();
+					if (message == null) message = "Game OVER!!!!";
+					if (font != null) font.drawString(WIDTH/2-300, HEIGHT/2 + 100, message);
 					break;
 				case LOADING_RESOURCE:
-					// Show loading screen
+					GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+					AWUtils.draw(txtGameLevel, 0, 0);
+					TextureImpl.bindNone();
+					if (message == null) message = "Loading ...";
+					if (font != null) font.drawString(WIDTH/2-100, HEIGHT/2 + 100, message);
+					if (AWUtils.getTime() - startedTime >= AbyssWorld.WAITING_TIME_BETWEEN_LEVEL) {
+						this.listScreens.get(this.current_level).setState(ScreenState.ONGOING);						
+					}
 					break;
 				default:
 					break;
@@ -133,6 +173,14 @@ public class AbyssWorld {
 		}
 		
 		Display.destroy();
+	}
+
+	private void initGraphical() {
+		try {
+			txtGameLevel = TextureLoader.getTexture("PNG", new FileInputStream(new File(game_level)));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Main function
