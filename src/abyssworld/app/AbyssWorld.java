@@ -51,7 +51,7 @@ public class AbyssWorld {
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
 	
 	// List of effect sounds
-	public static Audio bgMusic, endMusic, paper, plastic, organic, pick_garbage, call, sunshines;
+	public static Audio bgMusic, paper, plastic, organic, pick_garbage, call, sunshines; //, endMusic;
 	
 	TrueTypeFont font;
 	boolean gameOver = false;
@@ -97,10 +97,10 @@ public class AbyssWorld {
 		this.listScreens.add(introductionScreen);
 
 		Level1Screen level1Screen = new Level1Screen();
-		this.listScreens.add(level1Screen);
+		this.listScreens.add(level1Screen); */
 
 		Level2Screen level2Screen = new Level2Screen();
-		this.listScreens.add(level2Screen);*/
+		this.listScreens.add(level2Screen);
 
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
@@ -163,14 +163,14 @@ public class AbyssWorld {
 			Display.sync(60); // cap fps to 60fps
 			
 			if (gameOver) {
-				endMusic.playAsMusic(1.0f, 0.0f, false);
+				//endMusic.playAsMusic(1.0f, 0.0f, false);
 				try {
 					// Stop for some time before finish the game
 					TimeUnit.MILLISECONDS.sleep(5000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				endMusic.stop();
+				//endMusic.stop();
 			}
 		}
 		
@@ -202,7 +202,7 @@ public class AbyssWorld {
 		try {
 			bgMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/open.ogg"));
 			sunshines = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/sunshines.ogg"));
-			endMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/close.ogg"));
+			//endMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/close.ogg"));
 			plastic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/plastic.wav"));
 			organic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/organic.wav"));
 			paper = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/paper.wav"));
