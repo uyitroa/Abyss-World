@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package abyssworld.app;
 
@@ -16,19 +16,18 @@ import org.newdawn.slick.TrueTypeFont;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
-import abyssworld.objects.IntroductionScreen;
-import abyssworld.objects.Level1Screen;
+import abyssworld.objects.Level2Screen;
 
 /**
  * @author Raishin
  *
  */
 public class AbyssWorld {
-	
+
 	public final static int WIDTH = 1440;
 	public final static int HEIGHT = 900;
 	private static final String WINDOW_TITLE = "Abyss World Game";
-	
+
 	private int current_level = 0;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
@@ -36,11 +35,11 @@ public class AbyssWorld {
 	boolean gameOver = false;
 	public void initGL() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
+
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
@@ -48,7 +47,7 @@ public class AbyssWorld {
 	}
 
 	public void start() {
-		
+
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.setTitle(WINDOW_TITLE);
@@ -59,21 +58,21 @@ public class AbyssWorld {
 		}
 
 		initGL();
-		
-		/*IntroductionScreen introductionScreen = new IntroductionScreen();
-		this.listScreens.add(introductionScreen);*/
+
+		IntroductionScreen introductionScreen = new IntroductionScreen();
+		this.listScreens.add(introductionScreen);
 
 		Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);
-		/*
+
 		Level2Screen level2Screen = new Level2Screen();
-		this.listScreens.add(level2Screen);*/
+		this.listScreens.add(level2Screen);
 
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
 
 		while (!Display.isCloseRequested() && !gameOver) {
-			
+
 			switch (this.listScreens.get(this.current_level).getState()) {
 			case NEW:
 				this.listScreens.get(this.current_level).init();
@@ -112,7 +111,7 @@ public class AbyssWorld {
 		AbyssWorld timerExample = new AbyssWorld();
 		timerExample.start();
 	}
-	
+
 	public void initFont() {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 40);
 		font = new TrueTypeFont(awtFont, true);

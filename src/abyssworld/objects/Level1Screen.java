@@ -301,7 +301,7 @@ public class Level1Screen extends GameScreenAbstract {
 		}
 	}
 
-	public void initFont() {
+	private void initFont() {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
 		font = new TrueTypeFont(awtFont, true);
 	}
