@@ -4,6 +4,8 @@
 package abyssworld.app;
 
 import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,9 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
@@ -31,6 +36,7 @@ public class AbyssWorld {
 	private int current_level = 0;
 
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
+	public static Audio bgMusic, endMusic, paper, plastic, organic, pick_garbage;
 	TrueTypeFont font;
 	boolean gameOver = false;
 	public void initGL() {
@@ -56,7 +62,7 @@ public class AbyssWorld {
 			e.printStackTrace();
 			System.exit(0);
 		}
-
+		initSound();
 		initGL();
 
 		IntroductionScreen introductionScreen = new IntroductionScreen();
@@ -96,6 +102,7 @@ public class AbyssWorld {
 			Display.update();
 			Display.sync(60); // cap fps to 60fps
 			if (gameOver) {
+				endMusic.playAsMusic(1.0f, 0.0f, false);
 				try {
 					TimeUnit.MILLISECONDS.sleep(5000);
 				} catch (InterruptedException e) {
@@ -104,6 +111,7 @@ public class AbyssWorld {
 				}
 			}
 		}
+		endMusic.stop();
 		Display.destroy();
 	}
 
@@ -115,5 +123,22 @@ public class AbyssWorld {
 	public void initFont() {
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 40);
 		font = new TrueTypeFont(awtFont, true);
+	}
+
+	public void initSound() {
+		try {
+			bgMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/open.ogg"));
+			endMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/close.ogg"));
+			plastic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/plastic.wav"));
+			organic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/organic.wav"));
+			paper = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/paper.wav"));
+			pick_garbage = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/pick_garbage.wav"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

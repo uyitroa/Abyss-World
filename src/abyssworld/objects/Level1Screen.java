@@ -153,6 +153,8 @@ public class Level1Screen extends GameScreenAbstract {
 		if (closestGarbage != null && minDistance < Level1Screen.EFFECT_DISTANCE) {
 			System.out.println("Pick a garbage");
 			this.listOfGarbage.remove(closestGarbage);
+			System.out.println("f");
+			AbyssWorld.pick_garbage.playAsSoundEffect(1.0f, 1.0f, false);
 			this.player.pickAGarbage(closestGarbage);
 		}
 
@@ -183,6 +185,9 @@ public class Level1Screen extends GameScreenAbstract {
 			closestTB = this.blueTB;
 		};
 		if (closestTB != null && minDistance < Level1Screen.EFFECT_DISTANCE) {
+			if(closestTB.getType() == TrashBinType.TB_ORGANIC) AbyssWorld.organic.playAsSoundEffect(1.0f, 1.0f, false);
+			if(closestTB.getType() == TrashBinType.TB_PAPER) AbyssWorld.paper.playAsSoundEffect(1.0f, 1.0f, false);
+			if(closestTB.getType() == TrashBinType.TB_PLASTIC) AbyssWorld.plastic.playAsSoundEffect(1.0f, 1.0f, false);
 			this.player.throwAgarbageToATrashBin(closestTB);
 		}
 
