@@ -21,6 +21,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import abyssworld.interfaces.GameScreenInterface;
 import abyssworld.objects.FinalScreen;
+import abyssworld.objects.IntroductionScreen;
+import abyssworld.objects.Level1Screen;
 import abyssworld.objects.Level2Screen;
 
 /**
