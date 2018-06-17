@@ -51,7 +51,7 @@ public class AbyssWorld {
 	private List<GameScreenInterface> listScreens = new ArrayList<>();
 	
 	// List of effect sounds
-	public static Audio bgMusic, endMusic, paper, plastic, organic, pick_garbage;
+	public static Audio bgMusic, endMusic, paper, plastic, organic, pick_garbage, call, sunshines;
 	
 	TrueTypeFont font;
 	boolean gameOver = false;
@@ -93,14 +93,14 @@ public class AbyssWorld {
 		initGraphical();
 		
 		// Create the game levels
-		IntroductionScreen introductionScreen = new IntroductionScreen();
+		/*IntroductionScreen introductionScreen = new IntroductionScreen();
 		this.listScreens.add(introductionScreen);
 
 		Level1Screen level1Screen = new Level1Screen();
 		this.listScreens.add(level1Screen);
 
 		Level2Screen level2Screen = new Level2Screen();
-		this.listScreens.add(level2Screen);
+		this.listScreens.add(level2Screen);*/
 
 		FinalScreen finalScreen = new FinalScreen();
 		this.listScreens.add(finalScreen);
@@ -201,11 +201,14 @@ public class AbyssWorld {
 	public void initSound() {
 		try {
 			bgMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/open.ogg"));
+			sunshines = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/sunshines.ogg"));
 			endMusic = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("sounds/close.ogg"));
 			plastic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/plastic.wav"));
 			organic = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/organic.wav"));
 			paper = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/paper.wav"));
 			pick_garbage = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/pick_garbage.wav"));
+			call = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("sounds/call.wav"));
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

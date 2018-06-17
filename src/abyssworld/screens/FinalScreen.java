@@ -33,8 +33,16 @@ public class FinalScreen extends GameScreenAbstract {
 	
 	@Override
 	public void display() {
+		
+		if(screenIndex == 5) {
+			AbyssWorld.sunshines.stop();
+		}
+		
 		if(listScreen.get(screenIndex).show()) {
 			screenIndex++;
+			if(screenIndex == 2 || screenIndex == 3) {
+				AbyssWorld.call.playAsSoundEffect(1.0f, 1.0f, false);
+			}
 		}
 		
 		if (this.screenIndex == listScreen.size()) {
@@ -62,6 +70,8 @@ public class FinalScreen extends GameScreenAbstract {
 		
 		listScreen.add(new StaticScreen("                     ", NAME_PHONE));
 		listScreen.get(4).init();
+		
+		AbyssWorld.sunshines.playAsMusic(1.0f, 1.0f, false);
 		
 		listScreen.add(new StaticScreen("   Mom's dead.", MIDDLE_X, MIDDLE_Y, 500, 10));
 		listScreen.get(5).init();
