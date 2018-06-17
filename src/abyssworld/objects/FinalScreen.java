@@ -39,6 +39,7 @@ public class FinalScreen extends GameScreenAbstract {
 		
 		if (this.screenIndex == listScreen.size()) {
 			this.setState(ScreenState.OVER);
+			AbyssWorld.message = null;
 		}
 		
 	}

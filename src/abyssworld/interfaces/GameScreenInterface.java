@@ -26,4 +26,6 @@ public interface GameScreenInterface {
 	 * @return
 	 */
 	public ScreenState getState();
+
+	public void setState(ScreenState ongoing);
 }
